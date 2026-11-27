@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Alle Tech | Vitrine &amp; Bot de Curadoria Mercado Livre</title>
+  <meta name="description" content="Achados reais, suplementos de loja oficial, setup de TI, casa e esporte com desconto no Mercado Livre. Se precisa de ajuda e não sabe o que comprar, ajudo grátis no Zap!" />
+
+  <!-- Google Analytics 4 (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G945EWPX2V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G945EWPX2V');
+
+    function registrarClique(tipo, detalhe) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'clique_alle_store', {
+          tipo_acao: tipo,
+          item_clicado: detalhe
+        });
+      }
+    }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#FFE600',
+              dark: '#0B1120',
+              panel: '#111827',
+              card: '#131C31'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .glass {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up { animation: fadeUp 0.25s ease-out forwards; }
+
+    /* Animação estilo rolete do cronômetro ML */
+    @keyframes tickFlip {
+      0% { transform: translateY(-35%); opacity: 0.35; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    .tick-anim {
+      display: inline-block;
+      animation: tickFlip 0.22s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-brand-dark dark:text-slate-100 min-h-screen pb-32 md:pb-16 transition-colors duration-300">
+  <!-- FAIXA DE URGÊNCIA BLACK FRIDAY -->
+  <div class="bg-red-600 text-white text-center text-xs font-extrabold py-2 px-4 tracking-wide">
+    🚨 HOJE É O GRANDE DIA DA BLACK FRIDAY! Últimas horas para aproveitar ofertas e cupons antes de acabar!
+  </div>
+
+  <!-- ================= HEADER DA VITRINE ================= -->
+  <header class="sticky top-0 z-30 glass bg-white/85 dark:bg-brand-dark/85 border-b border-slate-200 dark:border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+      <!-- Logo -->
+      <a href="#" onclick="filtrarCategoria('todos'); return false;" class="flex items-center gap-2.5 shrink-0">
+        <span class="w-9 h-9 rounded-xl bg-brand-yellow text-slate-950 font-black flex items-center justify-center text-lg shadow">A</span>
+        <div class="leading-none">
+          <span class="font-extrabold text-lg tracking-tight block">Alle <span class="text-amber-500 dark:text-brand-yellow">Tech</span></span>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">alle.store</span>
+        </div>
+      </a>
+
+      <!-- Busca Desktop -->
+      <div class="hidden md:flex flex-1 max-w-md relative">
+        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+        <input id="searchDesktop" type="text" placeholder="Buscar achados (ex: whey, creatina, quadro, monitor, Galaxy)..."
+          class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow" />
+      </div>
+
+      <!-- Ações Direita -->
+      <div class="flex items-center gap-2">
+        <button onclick="abrirBot()"
+          class="inline-flex items-center gap-1.5 bg-brand-yellow hover:bg-yellow-300 text-slate-950 text-xs font-extrabold px-3 py-2 rounded-xl transition shadow">
+          <i data-lucide="bot" class="w-4 h-4"></i>
+          <span>Alle Bot</span>
+        </button>
+        <a id="headerWhatsApp" onclick="registrarClique('whatsapp', 'header')" href="https://wa.me/5561981700005?text=Fala%20Alle%20Tech!%20Vim%20pela%20alle.store%2C%20preciso%20de%20ajuda%20e%20n%C3%A3o%20sei%20o%20que%20comprar%20no%20Mercado%20Livre!" target="_blank" rel="noopener noreferrer"
+          class="hidden sm:inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition shadow-lg shadow-green-600/20">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Ajuda grátis no Zap</span>
+        </a>
+        <button id="themeToggle" aria-label="Alternar tema"
+          class="w-9 h-9 rounded-xl bg-slate-200/80 dark:bg-slate-800 flex items-center justify-center hover:ring-2 hover:ring-brand-yellow transition">
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-brand-yellow"></i>
+          <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-slate-700"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Barra de Busca Mobile Expansível -->
+    <div id="mobileSearchBar" class="hidden md:hidden px-4 pb-3">
+      <div class="relative">
+        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+        <input id="searchMobile" type="text" placeholder="Buscar produto com desconto..."
+          class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow" />
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= CONTEÚDO PRINCIPAL (VITRINE SPA) ================= -->
+  <main class="max-w-6xl mx-auto px-4 pt-6 space-y-8">
+
+    <!-- HERO BANNER -->
+    <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 dark:from-brand-card dark:via-slate-900 dark:to-slate-950 border border-slate-700/60 p-6 md:p-10 text-white shadow-2xl">
+      <div class="absolute -right-16 -top-16 w-72 h-72 bg-brand-yellow/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 max-w-2xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-yellow/15 border border-brand-yellow/30 text-brand-yellow text-xs font-bold uppercase tracking-wider">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          🔥 Black Friday Oficial • Último Dia de Ofertas Reais
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+          ACHADOS REAIS &amp; <span class="text-brand-yellow">CUPONS DO DIA</span>
+        </h1>
+        <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+          Seleção direta ao ponto com os melhores descontos de lojas oficiais do Mercado Livre em suplementos, tecnologia, casa e esporte.
+        </p>
+        <div class="flex flex-wrap gap-3 pt-2">
+          <button onclick="abrirBot()"
+            class="inline-flex items-center gap-2 bg-brand-yellow hover:bg-yellow-300 text-slate-950 font-extrabold text-sm px-5 py-3 rounded-xl transition shadow-lg shadow-yellow-500/20">
+            <i data-lucide="bot" class="w-4 h-4"></i>
+            Pedir pro Alle Tech Bot
+          </button>
+          <a id="heroWhatsApp" onclick="registrarClique('whatsapp', 'hero')" href="https://wa.me/5561981700005?text=Fala%20Alle%20Tech!%20Vim%20pela%20alle.store%2C%20preciso%20de%20ajuda%20e%20n%C3%A3o%20sei%20o%20que%20comprar%20no%20Mercado%20Livre!" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold text-sm px-5 py-3 rounded-xl transition shadow-lg shadow-green-600/20">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            Ajuda grátis no Zap!
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTRO DE CATEGORIAS -->
+    <section id="vitrine" class="space-y-6">
+      <div class="flex items-center justify-between gap-4 flex-wrap">
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" id="categoryTabs">
+          <button data-cat="todos" id="btnTodos" class="cat-btn px-4 py-2 rounded-xl text-sm font-bold shrink-0 transition">Tudo</button>
+          <button data-cat="suplementos" class="cat-btn px-4 py-2 rounded-xl text-sm font-bold shrink-0 transition">💪 Suplementos</button>
+          <button data-cat="casa" class="cat-btn px-4 py-2 rounded-xl text-sm font-bold shrink-0 transition">🏠 Casa &amp; Decor</button>
+          <button data-cat="esporte" class="cat-btn px-4 py-2 rounded-xl text-sm font-bold shrink-0 transition">⚽ Esporte</button>
+          <button data-cat="setup" class="cat-btn px-4 py-2 rounded-xl text-sm font-bold shrink-0 transition">🖥️ Setup &amp; PC</button>
+          <button data-cat="mobile" class="cat-btn px-4 py-2 rounded-xl text-sm font-bold shrink-0 transition">📱 Smartphones</button>
+        </div>
+      </div>
+
+      <!-- GRID DE PRODUTOS -->
+      <div id="produtosGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Cards renderizados via JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER DESKTOP -->
+  <footer class="max-w-6xl mx-auto px-4 mt-16 pt-6 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400">
+    <p class="font-semibold">alle.store • Alle Tech © 2026 • Parceiro Afiliado Mercado Livre</p>
+    <p class="mt-1">
+      <a onclick="registrarClique('whatsapp', 'footer')" href="https://wa.me/5561981700005?text=Fala%20Alle%20Tech!%20Vim%20pela%20alle.store%2C%20preciso%20de%20ajuda%20e%20n%C3%A3o%20sei%20o%20que%20comprar%20no%20Mercado%20Livre!" target="_blank" rel="noopener noreferrer" class="hover:text-green-500 underline underline-offset-2">
+        Se precisa de ajuda e não sabe o que comprar, ajudo grátis no Zap: (61) 98170-0005
+      </a>
+    </p>
+    <div class="mt-3">
+      <button type="button" onclick="abrirModalCafe()"
+        class="inline-flex items-center gap-2 bg-amber-500/15 hover:bg-amber-500/25 text-amber-600 dark:text-amber-300 border border-amber-400/30 font-semibold text-xs px-3.5 py-1.5 rounded-xl transition">
+        <span>☕</span>
+        <span>Pay me a Coffee</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- ================= CARD FLUTUANTE DE URGÊNCIA ================= -->
+  <div id="promoToast" class="fixed bottom-24 md:bottom-6 left-4 right-4 md:left-6 md:right-auto md:w-80 z-30 glass bg-slate-900/95 border border-slate-700 text-white rounded-2xl p-3.5 shadow-2xl flex items-center justify-between gap-3">
+    <a id="toastWhatsApp" onclick="registrarClique('whatsapp', 'toast_flutuante')" href="https://wa.me/5561981700005?text=Fala%20Alle%20Tech!%20Vim%20pela%20alle.store%2C%20preciso%20de%20ajuda%20e%20n%C3%A3o%20sei%20o%20que%20comprar%20no%20Mercado%20Livre!" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 flex-1 min-w-0">
+      <span class="w-9 h-9 rounded-xl bg-green-500/20 text-green-400 flex items-center justify-center shrink-0">
+        <i data-lucide="message-circle" class="w-5 h-5"></i>
+      </span>
+      <div class="text-xs leading-snug">
+        <p class="font-bold text-white">Não sabe o que comprar?</p>
+        <p class="text-slate-300">Ajudo grátis no Zap! Clique aqui 👇</p>
+      </div>
+    </a>
+    <button onclick="document.getElementById('promoToast').remove()" aria-label="Fechar aviso" class="text-slate-400 hover:text-white p-1 shrink-0">
+      <i data-lucide="x" class="w-4 h-4"></i>
+    </button>
+  </div>
+
+  <!-- BOTÃO FLUTUANTE DESKTOP PARA ABRIR O BOT -->
+  <button onclick="abrirBot()" aria-label="Abrir Alle Tech Bot"
+    class="hidden md:flex fixed bottom-6 right-6 z-30 items-center gap-2.5 bg-brand-yellow hover:bg-yellow-300 text-slate-950 font-extrabold text-sm px-5 py-3.5 rounded-full shadow-2xl shadow-yellow-500/30 transition transform hover:scale-105">
+    <i data-lucide="bot" class="w-5 h-5"></i>
+    <span>Alle Tech Bot</span>
+  </button>
+
+  <!-- ================= BARRA INFERIOR FLUTUANTE MOBILE (ESTILO APP) ================= -->
+  <nav class="md:hidden fixed bottom-4 left-4 right-4 z-30 glass bg-slate-900/95 border border-slate-700/80 rounded-full px-5 h-16 flex items-center justify-between text-slate-300 shadow-2xl">
+    <button onclick="filtrarCategoria('todos')" class="flex flex-col items-center gap-0.5 text-[11px] hover:text-brand-yellow">
+      <i data-lucide="home" class="w-5 h-5"></i>
+      <span>Início</span>
+    </button>
+    <button onclick="filtrarCategoria('suplementos')" class="flex flex-col items-center gap-0.5 text-[11px] hover:text-brand-yellow">
+      <i data-lucide="dumbbell" class="w-5 h-5"></i>
+      <span>Suplem.</span>
+    </button>
+
+    <!-- Botão Central (FAB Alle Tech Bot) -->
+    <button onclick="abrirBot()" aria-label="Abrir Alle Tech Bot"
+      class="-mt-8 w-14 h-14 rounded-full bg-brand-yellow hover:bg-yellow-300 text-slate-950 flex items-center justify-center shadow-xl shadow-yellow-500/40 border-4 border-brand-dark transition transform active:scale-95 relative">
+      <i data-lucide="bot" class="w-7 h-7"></i>
+      <span class="absolute top-0 right-0 w-3.5 h-3.5 rounded-full bg-green-500 border-2 border-brand-dark"></span>
+    </button>
+
+    <button onclick="filtrarCategoria('casa')" class="flex flex-col items-center gap-0.5 text-[11px] hover:text-brand-yellow">
+      <i data-lucide="sparkles" class="w-5 h-5"></i>
+      <span>Casa</span>
+    </button>
+    <button onclick="abrirBuscaMobile()" class="flex flex-col items-center gap-0.5 text-[11px] hover:text-brand-yellow">
+      <i data-lucide="search" class="w-5 h-5"></i>
+      <span>Buscar</span>
+    </button>
+  </nav>
+
+  <!-- ================= DRAWER / MODAL DO ALLE TECH BOT ================= -->
+  <div id="botDrawer" class="hidden fixed inset-0 z-50 bg-slate-950/75 glass flex items-end md:items-center justify-center p-0 md:p-4">
+    <div class="bg-slate-100 dark:bg-brand-panel border-t md:border border-slate-300 dark:border-slate-700 w-full max-w-xl h-[92dvh] md:h-[82vh] rounded-t-3xl md:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-fade-up">
+
+      <!-- Header do Bot -->
+      <div class="shrink-0 px-4 h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <div class="w-10 h-10 rounded-full bg-brand-yellow text-slate-950 font-black flex items-center justify-center text-lg shadow">A</div>
+            <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-white dark:border-slate-900"></span>
+          </div>
+          <div>
+            <h2 class="font-extrabold text-sm leading-tight flex items-center gap-1.5">
+              Alle Tech Bot
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-brand-yellow/20 text-amber-600 dark:text-brand-yellow">IA</span>
+            </h2>
+            <p class="text-[11px] text-green-600 dark:text-green-400 font-medium">Online • Curadoria Mercado Livre</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a id="botTopWaBtn" onclick="registrarClique('whatsapp', 'bot_header')" href="https://wa.me/5561981700005?text=Fala%20Alle%20Tech!%20Vim%20pela%20alle.store%2C%20preciso%20de%20ajuda%20e%20n%C3%A3o%20sei%20o%20que%20comprar%20no%20Mercado%20Livre!" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-3 py-2 rounded-xl transition shadow">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Ajuda grátis no Zap</span>
+          </a>
+          <button onclick="fecharBot()" aria-label="Fechar Bot"
+            class="w-9 h-9 rounded-xl bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-red-500/20 hover:text-red-400 transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Área de Mensagens do Bot -->
+      <div id="chatContainer" class="flex-1 overflow-y-auto px-4 py-4 space-y-4 scroll-smooth">
+        <!-- Mensagens inseridas via JS -->
+      </div>
+
+      <!-- Rodapé do Bot (Chips + Input) -->
+      <div class="shrink-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-3 pt-2.5 pb-3 space-y-2.5">
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
+          <button onclick="enviarComando('todos', '🔥 Ver todos os achados')"
+            class="shrink-0 text-xs font-bold px-3.5 py-1.5 rounded-full bg-brand-yellow text-slate-950 hover:bg-yellow-300 transition shadow-sm">
+            🔥 Ver todos
+          </button>
+          <button onclick="enviarComando('suplementos', '💪 Suplementos')"
+            class="shrink-0 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+            💪 Suplementos
+          </button>
+          <button onclick="enviarComando('casa', '🏠 Casa & Decor')"
+            class="shrink-0 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+            🏠 Casa &amp; Decor
+          </button>
+          <button onclick="enviarComando('esporte', '⚽ Esporte')"
+            class="shrink-0 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+            ⚽ Esporte
+          </button>
+          <button onclick="enviarComando('setup', '🖥️ Setup & PC')"
+            class="shrink-0 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+            🖥️ Setup &amp; PC
+          </button>
+          <button onclick="enviarComando('mobile', '📱 Smartphone')"
+            class="shrink-0 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+            📱 Smartphone
+          </button>
+          <button onclick="enviarComando('whatsapp', '💬 Preciso de ajuda pra escolher')"
+            class="shrink-0 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-green-600/15 text-green-700 dark:text-green-400 border border-green-500/30 hover:bg-green-600/25 transition">
+            💬 Ajuda grátis no Zap
+          </button>
+        </div>
+
+        <form id="chatForm" class="flex items-center gap-2">
+          <input id="userInput" type="text" autocomplete="off"
+            placeholder="Digite o que procura (ex: whey, creatina, quadro, monitor)..."
+            class="flex-1 px-4 py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow" />
+          <button type="submit" aria-label="Enviar"
+            class="w-11 h-11 rounded-2xl bg-brand-yellow hover:bg-yellow-300 text-slate-950 flex items-center justify-center shrink-0 transition shadow">
+            <i data-lucide="send" class="w-5 h-5"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL PAY ME A COFFEE (PIX COPIA E COLA) ================= -->
+  <div id="modalCafe" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 text-slate-100 shadow-2xl animate-fade-up">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-bold">☕ Pay me a Coffee — Apoie a Curadoria</h3>
+        <button type="button" onclick="fecharModalCafe()" aria-label="Fechar modal" class="text-slate-400 hover:text-white text-xl leading-none">&times;</button>
+      </div>
+
+      <p class="text-sm text-slate-300 mb-4">
+        Curtiu um achado, economizou com o garimpo ou quer dar uma força para o café de quem mantém a vitrine rodando? Qualquer valor ajuda!
+      </p>
+
+      <label for="pixCopiaCola" class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5">
+        Pix Copia e Cola (Mercado Pago)
+      </label>
+      <textarea id="pixCopiaCola" rows="3" readonly
+        class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 font-mono mb-3">00020126360014br.gov.bcb.pix0114+55619817000055204000053039865802BR5910Alex Alves6009Sao Paulo62220518daqr9020142726873263041F27</textarea>
+
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="copiarPixCafe()"
+          class="flex-1 bg-brand-yellow hover:bg-yellow-300 text-slate-950 font-extrabold text-sm py-2.5 px-4 rounded-xl transition">
+          Copiar código Pix
+        </button>
+        <span id="statusCopiaPix" class="text-xs text-emerald-400 font-semibold hidden">Copiado! ✅</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================= CONFIGURAÇÃO PRINCIPAL =================
+    const WHATSAPP_NUM = "5561981700005";
+    const WHATSAPP_MSG_PADRAO = "Fala Alle Tech! Vim pela alle.store, preciso de ajuda e não sei o que comprar no Mercado Livre!";
+
+    function gerarLinkZap(textoExtra = "") {
+      const msg = textoExtra
+        ? `Fala Alle Tech! Procurei por "${textoExtra}" na alle.store, preciso de ajuda e não sei o que comprar no Mercado Livre!`
+        : WHATSAPP_MSG_PADRAO;
+      return `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`;
+    }
+
+    const WA_URL = gerarLinkZap();
+    ["headerWhatsApp", "heroWhatsApp", "toastWhatsApp", "botTopWaBtn"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.href = WA_URL;
+    });
+
+    function escaparHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function atualizarIcones() {
+      if (window.lucide && typeof window.lucide.createIcons === "function") {
+        window.lucide.createIcons();
+      }
+    }
+
+    // ================= PAY ME A COFFEE (MODAL PIX) =================
+    function abrirModalCafe() {
+      registrarClique('apoio', 'abrir_pay_me_a_coffee');
+      document.getElementById('modalCafe').classList.remove('hidden');
+    }
+
+    function fecharModalCafe() {
+      document.getElementById('modalCafe').classList.add('hidden');
+      document.getElementById('statusCopiaPix').classList.add('hidden');
+    }
+
+    async function copiarPixCafe() {
+      const codigo = document.getElementById('pixCopiaCola').value.trim();
+      registrarClique('apoio', 'copiar_pix_cafe');
+      try {
+        await navigator.clipboard.writeText(codigo);
+        document.getElementById('statusCopiaPix').classList.remove('hidden');
+      } catch (e) {
+        const textarea = document.getElementById('pixCopiaCola');
+        textarea.select();
+        document.execCommand('copy');
+        document.getElementById('statusCopiaPix').classList.remove('hidden');
+      }
+    }
+
+    document.getElementById('modalCafe').addEventListener('click', (e) => {
+      if (e.target.id === 'modalCafe') fecharModalCafe();
+    });
+
+    // ================= CATÁLOGO EXTERNO (produtos.json) =================
+    let PRODUTOS = [];
+
+    // ================= COMPONENTE CUPOM RELÂMPAGO FIT (ESTILO ML) =================
+    function calcularRestante(isoExpira) {
+      const diff = new Date(isoExpira).getTime() - Date.now();
+      if (isNaN(diff) || diff <= 0) {
+        return { expirado: true, hh: "00", mm: "00", ss: "00" };
+      }
+      const totalSeg = Math.floor(diff / 1000);
+      const h = Math.floor(totalSeg / 3600);
+      const m = Math.floor((totalSeg % 3600) / 60);
+      const s = totalSeg % 60;
+      return {
+        expirado: false,
+        hh: String(h).padStart(2, "0"),
+        mm: String(m).padStart(2, "0"),
+        ss: String(s).padStart(2, "0")
+      };
+    }
+
+    function criarBlocoCupomRelampago(p) {
+      if (!p.expiraEm) return "";
+      const t = calcularRestante(p.expiraEm);
+      if (t.expirado) {
+        return `
+          <div class="rounded-lg bg-slate-200/80 dark:bg-slate-800 px-2.5 py-1 text-[10px] font-semibold text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1.5">
+            <i data-lucide="clock" class="w-3 h-3 shrink-0"></i>
+            <span>Cupom relâmpago encerrado</span>
+          </div>
+        `;
+      }
+
+      const temPreco = p.precoPor && p.precoDe;
+      const faixaPreco = temPreco ? `
+        <a href="${p.link}" onclick="registrarClique('produto_ml', '${p.id}_cupom')" target="_blank" rel="noopener noreferrer"
+           class="block bg-[#FFFCE8] hover:bg-[#FFF7D1] transition px-2.5 py-1.5 text-slate-900">
+          <div class="text-[10px] text-slate-500 line-through leading-none">
+            R$ ${escaparHtml(p.precoDe)}${p.precoDeCentavos ? `<sup class="text-[7px] ml-0.5">${escaparHtml(p.precoDeCentavos)}</sup>` : ""}
+          </div>
+          <div class="flex items-center flex-wrap gap-1.5 mt-0.5">
+            <span class="text-lg font-extrabold tracking-tight text-slate-950 leading-none">R$ ${escaparHtml(p.precoPor)}</span>
+            ${p.desconto ? `<span class="bg-[#FFE600] text-slate-950 text-[9px] font-extrabold px-1.5 py-0.5 rounded-sm leading-none">${escaparHtml(p.desconto)}</span>` : ""}
+            <span class="text-[10px] font-bold text-[#00A650] leading-none">com Cupom ›</span>
+          </div>
+        </a>
+      ` : "";
+
+      return `
+        <div class="ml-promo-box rounded-lg overflow-hidden border border-amber-400/50 shadow-sm"
+             data-expira="${p.expiraEm}" data-prod-id="${p.id}">
+          <div class="ml-countdown bg-gradient-to-r from-[#FFBF00] via-[#FFD700] to-[#FFE600] text-slate-950 px-2 py-1 flex items-center justify-between gap-1 flex-nowrap whitespace-nowrap">
+            <div class="flex items-center gap-1 font-black italic text-[9px] tracking-tighter uppercase shrink-0">
+              <i data-lucide="ticket" class="w-3 h-3 stroke-[2.5] shrink-0"></i>
+              <span>CUPOM RELÂMPAGO</span>
+            </div>
+            <div class="flex items-center gap-0.5 text-[8.5px] font-semibold shrink-0">
+              <span class="mr-0.5 hidden min-[350px]:inline">Termina em</span>
+              <span class="cd-h bg-[#FFF7CC] text-slate-950 font-bold tabular-nums text-[9.5px] leading-none px-1 py-0.5 rounded-[3px] min-w-[17px] text-center">${t.hh}</span>
+              <span class="font-bold leading-none">:</span>
+              <span class="cd-m bg-[#FFF7CC] text-slate-950 font-bold tabular-nums text-[9.5px] leading-none px-1 py-0.5 rounded-[3px] min-w-[17px] text-center">${t.mm}</span>
+              <span class="font-bold leading-none">:</span>
+              <span class="cd-s bg-[#FFF7CC] text-slate-950 font-bold tabular-nums text-[9.5px] leading-none px-1 py-0.5 rounded-[3px] min-w-[17px] text-center overflow-hidden">${t.ss}</span>
+            </div>
+          </div>
+          ${faixaPreco}
+        </div>
+      `;
+    }
+
+    function atualizarContadores() {
+      document.querySelectorAll(".ml-promo-box").forEach(box => {
+        const iso = box.dataset.expira;
+        const prodId = box.dataset.prodId;
+        const t = calcularRestante(iso);
+
+        if (t.expirado) {
+          box.className = "rounded-lg bg-slate-200/80 dark:bg-slate-800 px-2.5 py-1 text-[10px] font-semibold text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1.5";
+          box.innerHTML = `<i data-lucide="clock" class="w-3 h-3 shrink-0"></i><span>Cupom relâmpago encerrado</span>`;
+
+          const prod = PRODUTOS.find(item => item.id === prodId);
+          const card = box.closest("article");
+          if (card && prod) {
+            const badgeEl = card.querySelector("[data-badge-relampago]");
+            if (badgeEl) badgeEl.remove();
+            const alertaEl = card.querySelector("[data-alerta-texto]");
+            if (alertaEl && prod.alertaExpirado) alertaEl.textContent = prod.alertaExpirado;
+          }
+          atualizarIcones();
+          return;
+        }
+
+        const hEl = box.querySelector(".cd-h");
+        const mEl = box.querySelector(".cd-m");
+        const sEl = box.querySelector(".cd-s");
+
+        if (hEl && hEl.textContent !== t.hh) hEl.textContent = t.hh;
+        if (mEl && mEl.textContent !== t.mm) mEl.textContent = t.mm;
+        if (sEl && sEl.textContent !== t.ss) {
+          sEl.innerHTML = `<span class="tick-anim">${t.ss}</span>`;
+        }
+      });
+    }
+
+    setInterval(atualizarContadores, 1000);
+
+    // ================= LÓGICA DA VITRINE SPA =================
+    let categoriaAtual = "todos";
+    let termoBusca = "";
+
+    function filtrarCategoria(cat) {
+      categoriaAtual = cat;
+      registrarClique('categoria', cat);
+      atualizarBotoesCategoria();
+      renderizarVitrine();
+    }
+
+    function atualizarBotoesCategoria() {
+      document.querySelectorAll(".cat-btn").forEach(btn => {
+        const ativo = btn.dataset.cat === categoriaAtual;
+        btn.className = `cat-btn px-4 py-2 rounded-xl text-sm font-bold shrink-0 transition ${
+          ativo
+            ? "bg-brand-yellow text-slate-950 shadow-md shadow-yellow-500/20"
+            : "bg-slate-200/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700"
+        }`;
+      });
+    }
+
+    function renderizarVitrine() {
+      const grid = document.getElementById("produtosGrid");
+      const filtrados = PRODUTOS.filter(p => {
+        const matchCat = categoriaAtual === "todos" || p.categoria === categoriaAtual;
+        const matchBusca = !termoBusca ||
+          p.titulo.toLowerCase().includes(termoBusca) ||
+          p.opiniao.toLowerCase().includes(termoBusca) ||
+          p.keywords.some(k => termoBusca.includes(k));
+        return matchCat && matchBusca;
+      });
+
+      if (filtrados.length === 0) {
+        const linkBuscaZap = termoBusca ? gerarLinkZap(termoBusca) : WA_URL;
+        grid.innerHTML = `
+          <div class="col-span-full rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center space-y-3">
+            <p class="font-bold text-lg">Ainda não coloquei esse item na vitrine!</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400"><strong>Se precisa de ajuda e não sabe o que comprar, ajudo grátis no Zap!!!</strong></p>
+            <div class="flex flex-wrap justify-center gap-3 pt-1">
+              <a href="${linkBuscaZap}" onclick="registrarClique('whatsapp', 'busca_vazia')" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                Chamar no Zap agora
+              </a>
+              <button onclick="abrirBot()"
+                class="inline-flex items-center gap-2 bg-brand-yellow hover:bg-yellow-300 text-slate-950 font-bold text-sm px-5 py-2.5 rounded-xl transition">
+                <i data-lucide="bot" class="w-4 h-4"></i>
+                Perguntar ao Bot
+              </button>
+            </div>
+          </div>`;
+        atualizarIcones();
+        return;
+      }
+
+      grid.innerHTML = filtrados.map(p => {
+        const expirou = p.expiraEm && calcularRestante(p.expiraEm).expirado;
+        const mostrarBadge = p.badge && !expirou;
+        const textoAlerta = (expirou && p.alertaExpirado) ? p.alertaExpirado : p.alerta;
+
+        return `
+        <article class="group flex flex-col justify-between rounded-3xl bg-white dark:bg-brand-card border border-slate-200 dark:border-slate-800 overflow-hidden shadow-lg hover:shadow-2xl hover:border-brand-yellow/60 transition duration-300">
+          <div>
+            <div class="relative h-48 ${p.imagemCheia ? 'bg-slate-950 p-0' : 'bg-white p-4'} flex items-center justify-center overflow-hidden">
+              ${p.imagemCheia ? `
+                <img src="${p.imagem}" aria-hidden="true"
+                  class="absolute inset-0 w-full h-full object-cover blur-md scale-110 opacity-45" />
+              ` : ""}
+              ${mostrarBadge ? `
+                <span ${p.expiraEm ? 'data-badge-relampago="true"' : ''} class="absolute top-3 right-3 z-20 text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow ${p.badgeCor}">
+                  ${escaparHtml(p.badge)}
+                </span>
+              ` : ""}
+              <img src="${p.imagem}" alt="${escaparHtml(p.titulo)}"
+                onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"
+                class="relative z-10 ${p.imagemCheia ? 'w-full h-full object-contain' : 'max-h-40 object-contain'} group-hover:scale-105 transition duration-300" />
+              <div class="hidden relative z-10 flex-col items-center justify-center text-slate-400 gap-1.5">
+                <i data-lucide="shopping-bag" class="w-10 h-10 text-amber-500"></i>
+                <span class="text-xs font-medium">Produto verificado no ML</span>
+              </div>
+            </div>
+
+            <div class="p-3.5 space-y-2.5">
+              ${criarBlocoCupomRelampago(p)}
+              <h2 class="font-extrabold text-sm leading-snug line-clamp-2">${escaparHtml(p.titulo)}</h2>
+              <div class="rounded-2xl bg-slate-100 dark:bg-slate-800/60 p-3 border border-slate-200/70 dark:border-slate-700/50">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-brand-yellow mb-1">Curadoria Alle Tech</p>
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${escaparHtml(p.opiniao)}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-3.5 pb-4 pt-1 space-y-2">
+            ${!p.precoPor || expirou ? `
+              <p class="text-xs font-bold text-amber-600 dark:text-brand-yellow flex items-center gap-1.5">
+                <i data-lucide="tag" class="w-3.5 h-3.5 shrink-0"></i>
+                <span data-alerta-texto="true">${escaparHtml(textoAlerta)}</span>
+              </p>
+            ` : `<span data-alerta-texto="true" class="hidden"></span>`}
+            <a href="${p.link}" onclick="registrarClique('produto_ml', '${p.id}')" target="_blank" rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold text-xs py-3 px-4 rounded-xl transition shadow-md shadow-green-600/20">
+              Ver preço e cupom no ML
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </article>
+      `;}).join("");
+
+      atualizarIcones();
+    }
+
+    document.querySelectorAll(".cat-btn").forEach(btn => {
+      btn.addEventListener("click", () => filtrarCategoria(btn.dataset.cat));
+    });
+
+    ["searchDesktop", "searchMobile"].forEach(id => {
+      const input = document.getElementById(id);
+      if (input) {
+        input.addEventListener("input", e => {
+          termoBusca = e.target.value.trim().toLowerCase();
+          renderizarVitrine();
+        });
+      }
+    });
+
+    function abrirBuscaMobile() {
+      const bar = document.getElementById("mobileSearchBar");
+      bar.classList.toggle("hidden");
+      if (!bar.classList.contains("hidden")) {
+        document.getElementById("searchMobile").focus();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    // ================= LÓGICA DO ALLE TECH BOT (DRAWER) =================
+    const botDrawer = document.getElementById("botDrawer");
+    const chat = document.getElementById("chatContainer");
+    let botIniciado = false;
+
+    function abrirBot() {
+      registrarClique('bot', 'abriu_alle_bot');
+      botDrawer.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      if (!botIniciado) {
+        botIniciado = true;
+        adicionarMsgBot(`
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl rounded-tl-sm shadow-sm space-y-2.5 text-sm">
+            <p class="font-bold">Fala! Bem-vindo ao Alle Tech Bot 🤖</p>
+            <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">Digite o que você procura ou toque nos atalhos abaixo para ver os achados filtrados no Mercado Livre.</p>
+            <a href="${WA_URL}" onclick="registrarClique('whatsapp', 'bot_boas_vindas')" target="_blank" rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center gap-2 bg-green-600/15 hover:bg-green-600/25 border border-green-500/40 text-green-700 dark:text-green-400 font-bold text-xs py-2.5 px-3 rounded-xl transition">
+              <i data-lucide="message-circle" class="w-4 h-4 shrink-0"></i>
+              Se precisa de ajuda e não sabe o que comprar, ajudo grátis no Zap!!!
+            </a>
+          </div>
+        `);
+      }
+      setTimeout(() => document.getElementById("userInput").focus(), 150);
+    }
+
+    function fecharBot() {
+      botDrawer.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    botDrawer.addEventListener("click", (e) => {
+      if (e.target === botDrawer) fecharBot();
+    });
+
+    function rolarChat() {
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function adicionarMsgUsuario(texto) {
+      const div = document.createElement("div");
+      div.className = "flex justify-end animate-fade-up";
+      div.innerHTML = `
+        <div class="max-w-[82%] bg-brand-yellow text-slate-950 font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-2xl rounded-tr-sm shadow">
+          ${escaparHtml(texto)}
+        </div>
+      `;
+      chat.appendChild(div);
+      rolarChat();
+    }
+
+    function mostrarDigitando() {
+      const div = document.createElement("div");
+      div.id = "typingIndicator";
+      div.className = "flex items-start gap-2.5 animate-fade-up";
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-full bg-brand-yellow text-slate-950 font-black text-xs flex items-center justify-center shrink-0 mt-1">A</div>
+        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm flex gap-1">
+          <span class="w-2 h-2 rounded-full bg-slate-400 animate-bounce"></span>
+          <span class="w-2 h-2 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.15s"></span>
+          <span class="w-2 h-2 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.3s"></span>
+        </div>
+      `;
+      chat.appendChild(div);
+      rolarChat();
+    }
+
+    function removerDigitando() {
+      const el = document.getElementById("typingIndicator");
+      if (el) el.remove();
+    }
+
+    function adicionarMsgBot(htmlConteudo) {
+      const div = document.createElement("div");
+      div.className = "flex items-start gap-2.5 animate-fade-up";
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-full bg-brand-yellow text-slate-950 font-black text-xs flex items-center justify-center shrink-0 mt-1 shadow">A</div>
+        <div class="max-w-[88%] space-y-3 w-full">
+          ${htmlConteudo}
+        </div>
+      `;
+      chat.appendChild(div);
+      atualizarIcones();
+      rolarChat();
+    }
+
+    function criarCardBot(p) {
+      const expirou = p.expiraEm && calcularRestante(p.expiraEm).expirado;
+      const mostrarBadge = p.badge && !expirou;
+      const textoAlerta = (expirou && p.alertaExpirado) ? p.alertaExpirado : p.alerta;
+
+      return `
+        <article class="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden shadow-md">
+          <div class="relative h-40 ${p.imagemCheia ? 'bg-slate-950 p-0' : 'bg-white p-3'} flex items-center justify-center overflow-hidden">
+            ${p.imagemCheia ? `
+              <img src="${p.imagem}" aria-hidden="true"
+                class="absolute inset-0 w-full h-full object-cover blur-md scale-110 opacity-45" />
+            ` : ""}
+            ${mostrarBadge ? `
+              <span ${p.expiraEm ? 'data-badge-relampago="true"' : ''} class="absolute top-2 right-2 z-20 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow ${p.badgeCor}">
+                ${escaparHtml(p.badge)}
+              </span>
+            ` : ""}
+            <img src="${p.imagem}" alt="${escaparHtml(p.titulo)}" class="relative z-10 ${p.imagemCheia ? 'w-full h-full object-contain' : 'max-h-32 object-contain'}" />
+          </div>
+          <div class="p-3 space-y-2">
+            ${criarBlocoCupomRelampago(p)}
+            <h3 class="font-bold text-xs sm:text-sm leading-snug">${escaparHtml(p.titulo)}</h3>
+            <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-100 dark:bg-slate-900/70 p-2 rounded-xl">
+              <strong class="text-amber-600 dark:text-brand-yellow">Curadoria Alle Tech:</strong> ${escaparHtml(p.opiniao)}
+            </p>
+            ${!p.precoPor || expirou ? `
+              <p class="text-[11px] font-bold text-amber-600 dark:text-brand-yellow flex items-center gap-1">
+                <i data-lucide="tag" class="w-3 h-3 shrink-0"></i>
+                <span data-alerta-texto="true">${escaparHtml(textoAlerta)}</span>
+              </p>
+            ` : `<span data-alerta-texto="true" class="hidden"></span>`}
+            <a href="${p.link}" onclick="registrarClique('produto_ml_bot', '${p.id}')" target="_blank" rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold text-xs py-2.5 px-3 rounded-xl transition shadow">
+              Ver preço e cupom no Mercado Livre
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </article>
+      `;
+    }
+
+    function responderBot(tipoOuTexto) {
+      mostrarDigitando();
+      setTimeout(() => {
+        removerDigitando();
+        const q = tipoOuTexto.toLowerCase();
+
+        if (q === "whatsapp" || q.includes("zap") || q.includes("falar") || q.includes("ajuda") || q.includes("consultoria")) {
+          adicionarMsgBot(`
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl rounded-tl-sm shadow-sm space-y-3 text-xs sm:text-sm">
+              <p><strong>Se precisa de ajuda e não sabe o que comprar, ajudo grátis no Zap!!!</strong></p>
+              <a href="${WA_URL}" onclick="registrarClique('whatsapp', 'bot_comando')" target="_blank" rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold text-xs py-3 px-4 rounded-xl transition">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                Chamar no Zap agora
+              </a>
+            </div>
+          `);
+          return;
+        }
+
+        let encontrados = [];
+        if (q === "todos" || q.includes("tudo") || q.includes("lista")) {
+          encontrados = PRODUTOS;
+        } else if (q === "suplementos" || q === "casa" || q === "setup" || q === "mobile" || q === "esporte") {
+          encontrados = PRODUTOS.filter(p => p.categoria === q);
+        } else {
+          encontrados = PRODUTOS.filter(p =>
+            p.titulo.toLowerCase().includes(q) ||
+            p.keywords.some(k => q.includes(k))
+          );
+        }
+
+        if (encontrados.length > 0) {
+          const intro = `<div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-2xl rounded-tl-sm shadow-sm text-xs sm:text-sm">
+            Separei <strong>${encontrados.length} ${encontrados.length === 1 ? 'item' : 'itens'}</strong> da nossa curadoria 👇
+          </div>`;
+          const cards = encontrados.map(criarCardBot).join("");
+          adicionarMsgBot(intro + cards);
+        } else {
+          const zapPersonalizado = gerarLinkZap(tipoOuTexto);
+          adicionarMsgBot(`
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl rounded-tl-sm shadow-sm space-y-3 text-xs sm:text-sm">
+              <p>Ainda não coloquei <strong>"${escaparHtml(tipoOuTexto)}"</strong> aqui, mas <strong>se precisa de ajuda e não sabe o que comprar, ajudo grátis no Zap!!!</strong></p>
+              <a href="${zapPersonalizado}" onclick="registrarClique('whatsapp', 'bot_nao_encontrado')" target="_blank" rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl transition">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                Pedir "${escaparHtml(tipoOuTexto)}" no Zap
+              </a>
+            </div>
+          `);
+        }
+      }, 400);
+    }
+
+    function enviarComando(chave, label) {
+      adicionarMsgUsuario(label);
+      responderBot(chave);
+    }
+
+    document.getElementById("chatForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const input = document.getElementById("userInput");
+      const val = input.value.trim();
+      if (!val) return;
+      adicionarMsgUsuario(val);
+      input.value = "";
+      responderBot(val);
+    });
+
+    // Toggle Dark/Light
+    const html = document.documentElement;
+    if (localStorage.getItem("theme") === "light") html.classList.remove("dark");
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      html.classList.toggle("dark");
+      localStorage.setItem("theme", html.classList.contains("dark") ? "dark" : "light");
+    });
+
+    // Inicializa Vitrine carregando produtos.json externo
+    async function carregarCatalogo() {
+      try {
+        const resp = await fetch(`produtos.json?v=${Date.now()}`);
+        if (!resp.ok) throw new Error("Falha ao carregar produtos.json");
+        PRODUTOS = await resp.json();
+        const btnTodos = document.getElementById("btnTodos");
+        if (btnTodos) btnTodos.textContent = `Tudo (${PRODUTOS.length})`;
+        atualizarBotoesCategoria();
+        renderizarVitrine();
+        atualizarIcones();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    carregarCatalogo();
+  </script>
+</body>
+</html>
