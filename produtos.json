@@ -1,17 +1,29 @@
 [
   {
-  "titulo": "Xiaomi 17T 5G 512GB • 12GB RAM • Câmera Leica",
-  "categoria": "Tech & Celulares",
-  "preco": "A partir de R$ 4.127",
-  "destaque": "512GB • NFC • Homologado Anatel",
-  "curadoria": "Tela AMOLED 6,59\" 120Hz, bateria de 6.500 mAh e lentes Leica com zoom óptico 5x. Atenção: confira na descrição do vendedor se o lote inclui a fonte do carregador.",
-  "link": "COLE_SEU_MELI_LA_AQUI",
-  "imagem": "COLE_URL_MLSTATIC_AQUI"
-}
+    "titulo": "Xiaomi 17T 5G 512GB • 12GB RAM • Câmera Leica",
+    "categoria": "Tech & Celulares",
+    "preco": "A partir de R$ 4.127",
+    "destaque": "512GB • NFC • Homologado Anatel",
+    "curadoria": "Tela AMOLED 6,59\" 120Hz, bateria de 6.500 mAh e lentes Leica com zoom óptico 5x. Atenção: confira na descrição do vendedor se o lote inclui a fonte do carregador.",
+    "link": "COLE_SEU_MELI_LA_AQUI",
+    "imagem": "COLE_URL_MLSTATIC_AQUI"
+  },
   {
     "id": "bike-spinning-sevenfit-6kg",
     "categoria": "esporte",
-    "keywords": ["bike", "bicicleta", "spinning", "ergometrica", "ergométrica", "sevenfit", "treino", "cardio", "academia", "casa", "esporte"],
+    "keywords": [
+      "bike",
+      "bicicleta",
+      "spinning",
+      "ergometrica",
+      "ergométrica",
+      "sevenfit",
+      "treino",
+      "cardio",
+      "academia",
+      "casa",
+      "esporte"
+    ],
     "titulo": "Bicicleta Ergométrica Spinning SevenFit 6kg Inércia + Garrafa Brinde",
     "badge": "61% OFF • Mais Vendida 🔥",
     "badgeCor": "bg-green-600 text-white",
@@ -23,7 +35,18 @@
   {
     "id": "relógio-condor-dourado-conjunto-semi-joia",
     "categoria": "casa",
-    "keywords": ["relogio", "relógio", "condor", "feminino", "dourado", "semi-joia", "presente", "eclock", "50m", "6x"],
+    "keywords": [
+      "relogio",
+      "relógio",
+      "condor",
+      "feminino",
+      "dourado",
+      "semi-joia",
+      "presente",
+      "eclock",
+      "50m",
+      "6x"
+    ],
     "titulo": "Relógio Feminino Condor Dourado Fundo Rosa + Conjunto Semi-joia",
     "badge": "Últimas 4 un. • 39% OFF ✨",
     "badgeCor": "bg-pink-600 text-white",
@@ -35,7 +58,21 @@
   {
     "id": "samsung-galaxy-fit3-grafite-12h",
     "categoria": "mobile",
-    "keywords": ["relogio", "relógio", "smartwatch", "pulseira", "samsung", "galaxy", "fit 3", "fit3", "treino", "esporte", "5atm", "ip68", "mobile"],
+    "keywords": [
+      "relogio",
+      "relógio",
+      "smartwatch",
+      "pulseira",
+      "samsung",
+      "galaxy",
+      "fit 3",
+      "fit3",
+      "treino",
+      "esporte",
+      "5atm",
+      "ip68",
+      "mobile"
+    ],
     "titulo": "Samsung Smartwatch Galaxy Fit 3 Grafite Tela AMOLED 1.6\" 5ATM IP68",
     "badge": "Destaque Tech ⌚",
     "badgeCor": "bg-brand-yellow text-slate-950",
@@ -47,7 +84,21 @@
   {
     "id": "whey-pro-max-titanium-1kg",
     "categoria": "suplementos",
-    "keywords": ["whey", "proteina", "proteína", "max titanium", "whey pro", "chocolate", "1kg", "suplemento", "suplementos", "treino", "academia", "musculacao", "musculação"],
+    "keywords": [
+      "whey",
+      "proteina",
+      "proteína",
+      "max titanium",
+      "whey pro",
+      "chocolate",
+      "1kg",
+      "suplemento",
+      "suplementos",
+      "treino",
+      "academia",
+      "musculacao",
+      "musculação"
+    ],
     "titulo": "Proteína Max Titanium Whey Pro Concentrado Chocolate 1kg",
     "badge": "Loja Oficial 🔥",
     "badgeCor": "bg-green-600 text-white",
@@ -59,7 +110,18 @@
   {
     "id": "creatina-max-titanium-300g",
     "categoria": "suplementos",
-    "keywords": ["creatina", "max titanium", "suplemento", "suplementos", "treino", "academia", "musculacao", "musculação", "monohidratada", "300g"],
+    "keywords": [
+      "creatina",
+      "max titanium",
+      "suplemento",
+      "suplementos",
+      "treino",
+      "academia",
+      "musculacao",
+      "musculação",
+      "monohidratada",
+      "300g"
+    ],
     "titulo": "Creatina Max Titanium 300g 100% Pura Monohidratada Sem Sabor",
     "badge": "+1M Vendidos 🔥",
     "badgeCor": "bg-green-600 text-white",
@@ -71,7 +133,20 @@
   {
     "id": "fire-black-max-titanium-60caps",
     "categoria": "suplementos",
-    "keywords": ["termogenico", "termogênico", "cafeina", "cafeína", "fire black", "max titanium", "pre treino", "pré-treino", "energia", "emagrecer", "suplemento", "suplementos"],
+    "keywords": [
+      "termogenico",
+      "termogênico",
+      "cafeina",
+      "cafeína",
+      "fire black",
+      "max titanium",
+      "pre treino",
+      "pré-treino",
+      "energia",
+      "emagrecer",
+      "suplemento",
+      "suplementos"
+    ],
     "titulo": "Fire Black 60 Cápsulas Cafeína Pura 400mg Termogênico Max Titanium",
     "badge": "Energia ⚡",
     "badgeCor": "bg-amber-500 text-slate-950",
@@ -84,7 +159,21 @@
     "id": "quadro-jesus-mosaico",
     "categoria": "casa",
     "imagemCheia": true,
-    "keywords": ["quadro", "jesus", "cristo", "orando", "mosaico", "decoracao", "decoração", "sala", "casa", "presente", "natal", "igreja", "religioso"],
+    "keywords": [
+      "quadro",
+      "jesus",
+      "cristo",
+      "orando",
+      "mosaico",
+      "decoracao",
+      "decoração",
+      "sala",
+      "casa",
+      "presente",
+      "natal",
+      "igreja",
+      "religioso"
+    ],
     "titulo": "Quadro Decorativo Jesus Cristo Orando Mosaico Grande",
     "badge": "No meu carrinho ✨",
     "badgeCor": "bg-brand-yellow text-slate-950",
@@ -96,7 +185,19 @@
   {
     "id": "chuteira-mizuno",
     "categoria": "esporte",
-    "keywords": ["chuteira", "tenis", "tênis", "mizuno", "futsal", "salao", "salão", "quadra", "costurada", "futebol", "esporte"],
+    "keywords": [
+      "chuteira",
+      "tenis",
+      "tênis",
+      "mizuno",
+      "futsal",
+      "salao",
+      "salão",
+      "quadra",
+      "costurada",
+      "futebol",
+      "esporte"
+    ],
     "titulo": "Tênis Futsal Salão Quadra Mizuno Costurada Masculino",
     "badge": "Nota 4.6 ⭐",
     "badgeCor": "bg-green-600 text-white",
@@ -108,7 +209,16 @@
   {
     "id": "monitor-lg",
     "categoria": "setup",
-    "keywords": ["monitor", "lg", "ultrawide", "29", "tela", "ips", "100hz", "setup"],
+    "keywords": [
+      "monitor",
+      "lg",
+      "ultrawide",
+      "29",
+      "tela",
+      "ips",
+      "100hz",
+      "setup"
+    ],
     "titulo": "Monitor LG UltraWide 29\" IPS, 21:9, HDR10, sRGB 99%, 100Hz (29WQ500B)",
     "badge": "Uso no meu setup",
     "badgeCor": "bg-brand-yellow text-slate-950",
@@ -120,7 +230,15 @@
   {
     "id": "dell",
     "categoria": "setup",
-    "keywords": ["pc", "mini", "dell", "3050", "computador", "ssd", "setup"],
+    "keywords": [
+      "pc",
+      "mini",
+      "dell",
+      "3050",
+      "computador",
+      "ssd",
+      "setup"
+    ],
     "titulo": "Mini PC Dell 3050 i3 7ª Ger, 8GB RAM, SSD 240GB, Win 11 Pro",
     "badge": "Última peça",
     "badgeCor": "bg-red-500 text-white",
@@ -132,7 +250,14 @@
   {
     "id": "lenovo",
     "categoria": "setup",
-    "keywords": ["teclado", "mouse", "lenovo", "kit", "setup", "sem fio"],
+    "keywords": [
+      "teclado",
+      "mouse",
+      "lenovo",
+      "kit",
+      "setup",
+      "sem fio"
+    ],
     "titulo": "Teclado e Mouse Lenovo Professional Sem Fio (4X30H56832)",
     "badge": "",
     "badgeCor": "",
@@ -144,7 +269,15 @@
   {
     "id": "galaxy",
     "categoria": "mobile",
-    "keywords": ["celular", "smartphone", "samsung", "galaxy", "a17", "mobile", "nfc"],
+    "keywords": [
+      "celular",
+      "smartphone",
+      "samsung",
+      "galaxy",
+      "a17",
+      "mobile",
+      "nfc"
+    ],
     "titulo": "Samsung Galaxy A17 128GB, 4GB RAM, IA, 50MP, Tela 6.7\", NFC, IP54",
     "badge": "",
     "badgeCor": "",
